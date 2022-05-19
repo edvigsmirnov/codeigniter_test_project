@@ -28,9 +28,10 @@
                 </div>
             </div>
             <div class="row">
-                <div class="col-3">
+                <div class="col-4">
                     <button class="btn btn-success" type="submit">Save changes</button>
                     <a href="/list" class="btn btn-dark">Back to list</a>
+                    <a class="btn btn-danger" href='/delete/<?= $user['id']?>'>Delete</a>
                 </div>
             </div>
         </form>

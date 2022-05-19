@@ -33,11 +33,11 @@ $routes->setAutoRoute(true);
 // route since we don't have to scan directories.
 $routes->match(['get', 'post'], '/create', 'Users::save');
 $routes->match(['get', 'post'], '/edit', 'Users::update');
+$routes->match(['get', 'post'], '/delete', 'Users::delete');
 $routes->get('/', 'Users::index');
-$routes->get('/edit/(:num)', 'Users::getUser/$1');
+$routes->get('/delete/(:num)', 'Users::confirmDeletion/$1');
+$routes->get('/edit/(:num)', 'Users::getUserPage/$1');
 $routes->get('(:any)', 'Users::view/$1');
-
-
 
 /*
  * --------------------------------------------------------------------

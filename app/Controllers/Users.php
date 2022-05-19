@@ -13,7 +13,7 @@ class Users extends BaseController
         $data = [
             'fields' => $model->getColumnNames(),
             'users' => $model->getUsers(),
-            'title' => 'User List',
+            'title' => 'Users List',
         ];
 
         echo view('templates/header', $data);
@@ -23,11 +23,16 @@ class Users extends BaseController
 
     public function view($page)
     {
-        if (! is_file(APPPATH . 'Views/users/' . $page . '.php')) {
+        if (!is_file(APPPATH . 'Views/users/' . $page . '.php')) {
             throw new \CodeIgniter\Exceptions\PageNotFoundException($page);
         }
         if ($page === 'list') {
             return $this->index();
+        }
+        if ($page === 'delete') {
+            echo view('templates/header');
+            echo view('users/delete');
+            echo view('templates/footer');
         }
         $data['title'] = ucfirst($page);
 
@@ -57,8 +62,7 @@ class Users extends BaseController
             ]);
 
             $data = [
-              'title' => 'Congratulations!',
-              'success' => true
+                'title' => 'User was successfully created!',
             ];
             echo view('templates/header', $data);
             echo view('users/success', $data);
@@ -71,7 +75,7 @@ class Users extends BaseController
         }
     }
 
-    public function getUser($id)
+    public function getUserPage($id)
     {
         $model = model(UsersModel::class);
 
@@ -90,6 +94,7 @@ class Users extends BaseController
         $model = model(UsersModel::class);
         $userID = $this->request->getPost('id');
         $user = $model->getUser($userID);
+
         $data = [
             'id' => $userID,
             'first_name' => $this->request->getPost('firstName') ?: $user['first_name'],
@@ -101,5 +106,26 @@ class Users extends BaseController
         $model->save($data);
 
         return $this->index();
+    }
+
+    public function delete()
+    {
+        $model = model(UsersModel::class);
+
+        $model->delete([$this->request->getPost('id')]);
+
+        return $this->index();
+    }
+
+    public function confirmDeletion($id = '')
+    {
+        $data = [
+            'id' => $id,
+            'title' => 'Delete user'
+        ];
+
+        echo view('/templates/header', $data);
+        echo view('/users/delete', $data);
+        echo view('/templates/footer');
     }
 }

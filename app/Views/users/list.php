@@ -3,7 +3,7 @@
     <?php if (empty($users) && !is_array($users)) { ?>
         <p>Unfortunately, there are no users. But you can <a href="/create">create one</a></p>
     <?php } else { ?>
-        <a href="/create" class="btn btn-success btn">Create new user</a>
+        <a href="/create" class="btn btn-success btn">Create a new user</a>
         <div class="container pt-1"></div>
         <table class="table table-hover text-center">
             <thead class="thead-dark">
